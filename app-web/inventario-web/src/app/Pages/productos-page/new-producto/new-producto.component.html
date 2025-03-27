@@ -1,1 +1,306 @@
-<p>new-producto works!</p>
+<!--  Modal trigger button  -->
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#modalNewProduct"
+>
+  <i class="bi bi-file-earmark-plus"></i>
+  Nuevo Registro
+</button>
+
+<!-- Modal Body-->
+<div
+  class="modal fade"
+  id="modalNewProduct"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  data-bs-keyboard="true"
+  aria-labelledby="modalTitleProduc"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title" id="modalTitleProduc">Nuevo Registro</p>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <!-- Formulario de registro -->
+          <form
+            method="post"
+            [formGroup]="newFormProduct"
+            (ngSubmit)="registerNewProduct()"
+            class="needs-validations"
+            novalidate
+          >
+            <!-- Fila # 1-->
+            <div class="row align-items-center g-2">
+              <div class="col">
+                <!-- Name -->
+                <div class="form-floating mb-4">
+                  <input
+                    type="text"
+                    class="form-control shadow"
+                    id="newName"
+                    formControlName="newName"
+                    autocomplete="off"
+                    placeholder="Nombre del Producto"
+                    [ngClass]="{
+                      'is-invalid':
+                        newFormProduct.get('newName')?.touched &&
+                        newFormProduct.get('newName')?.invalid
+                    }"
+                    required="true"
+                  />
+                  <label for="newName" class="form-label"
+                    >Nombre del Producto<span class="text-danger"
+                      >*</span
+                    ></label
+                  >
+                  <div class="invalid-feedback">
+                    <span
+                      *ngIf="
+                        newFormProduct.get('newName')?.hasError('required')
+                      "
+                      >El nombre es obligatorio.</span
+                    >
+                    <span
+                      *ngIf="newFormProduct.get('newName')?.hasError('pattern')"
+                      >No se permite caracteres especiales o números.</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <!-- Detalle -->
+                <div class="form-floating mb-4">
+                  <input
+                    type="text"
+                    class="form-control shadow"
+                    id="newDetails"
+                    formControlName="newDetails"
+                    autocomplete="off"
+                    placeholder="Detalle del Producto"
+                    [ngClass]="{
+                      'is-invalid':
+                        newFormProduct.get('newDetails')?.touched &&
+                        newFormProduct.get('newDetails')?.invalid
+                    }"
+                  />
+                  <label for="newDetails" class="form-label fw-semibold"
+                    >Detalle del producto<span class="text-danger"
+                      >*</span
+                    ></label
+                  >
+                  <div
+                    *ngIf="
+                      newFormProduct.get('newDetails')?.touched &&
+                      newFormProduct.get('newDetails')?.invalid
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="newFormProduct.get('newDetails')?.errors?.['required']"
+                    >
+                      El detalle es obligatorio.
+                    </div>
+                    <div
+                      *ngIf="newFormProduct.get('newDetails')?.errors?.['pattern']"
+                    >
+                      No se permite caracteres especiales o números.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Fila # 3-->
+              <div class="row justify-content-center align-items-center g-2">
+                <div class="col">
+                  <!-- Precio -->
+                  <div class="form-floating mb-4">
+                    <input
+                      type="number"
+                      class="form-control shadow"
+                      id="newPrecio"
+                      formControlName="newPrecio"
+                      autocomplete="off"
+                      placeholder="Precio"
+                      [ngClass]="{
+                        'is-invalid':
+                          newFormProduct.get('newPrecio')?.touched &&
+                          newFormProduct.get('newPrecio')?.invalid
+                      }"
+                    />
+                    <label for="newPrecio" class="form-label fw-semibold"
+                      >Precio<span class="text-danger">*</span></label
+                    >
+                    <div
+                      *ngIf="
+                        newFormProduct.get('newPrecio')?.touched &&
+                        newFormProduct.get('newPrecio')?.invalid
+                      "
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="newFormProduct.get('newPrecio')?.errors?.['required']"
+                      >
+                        El precio es obligatorio.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <!-- Cantidad -->
+                  <div class="form-floating mb-4">
+                    <input
+                      type="number"
+                      class="form-control shadow"
+                      id="newStock"
+                      formControlName="newStock"
+                      autocomplete="off"
+                      placeholder="Cantidad"
+                      [ngClass]="{
+                        'is-invalid':
+                          newFormProduct.get('newStock')?.touched &&
+                          newFormProduct.get('newStock')?.invalid
+                      }"
+                    />
+                    <label for="newStock" class="form-label fw-semibold"
+                      >Cantidad<span class="text-danger">*</span></label
+                    >
+                    <div
+                      *ngIf="
+                        newFormProduct.get('newStock')?.touched &&
+                        newFormProduct.get('newStock')?.invalid
+                      "
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="newFormProduct.get('newStock')?.errors?.['required']"
+                      >
+                        La cantidad es obligatorio.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Fila # 1-->
+              <div class="row justify-content-center align-items-center g-2">
+                <div class="col">
+                  <!-- Categoria -->
+                  <div class="form-floating mb-4">
+                    <select
+                      formControlName="newCategoria"
+                      id="newCategoria"
+                      class="form-select shadow"
+                      required
+                      [ngClass]="{
+                        'is-invalid':
+                          newFormProduct.get('newCategoria')?.touched &&
+                          newFormProduct.get('newCategoria')?.invalid
+                      }"
+                    >
+                      <option value="" disabled></option>
+                      <option
+                        *ngFor="let categoria of allCategoria"
+                        [value]="categoria.cat_id"
+                      >
+                        {{ categoria.cat_name }}
+                      </option>
+                    </select>
+                    <label for="newCategoria" class="form-label fw-semibold"
+                      >Categorias</label
+                    >
+                    <div
+                      *ngIf="
+                        newFormProduct.get('newRol')?.touched &&
+                        newFormProduct.get('newRol')?.invalid
+                      "
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="newFormProduct.get('newRol')?.errors?.['required']"
+                      >
+                        El categoria es obligatorio.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <!-- Estado -->
+                  <div class="form-floating mb-4">
+                    <select
+                      formControlName="newStatus"
+                      id="newStatus"
+                      class="form-select shadow"
+                      required
+                      [ngClass]="{
+                        'is-invalid':
+                          newFormProduct.get('newStatus')?.touched &&
+                          newFormProduct.get('newStatus')?.invalid
+                      }"
+                    >
+                      <option value="" disabled></option>
+                      <option
+                        *ngFor="let state of allEstado"
+                        [value]="state.est_id"
+                      >
+                        {{ state.est_name }}
+                      </option>
+                    </select>
+                    <label for="newStatus" class="form-label fw-semibold"
+                      >Estado</label
+                    >
+                    <div
+                      *ngIf="
+                        newFormProduct.get('newStatus')?.touched &&
+                        newFormProduct.get('newStatus')?.invalid
+                      "
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="newFormProduct.get('newStatus')?.errors?.['required']"
+                      >
+                        El Estado es obligatorio.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button
+                  type="button"
+                  class="btn btn-danger mx-2"
+                  data-bs-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-success mx-2"
+                  [disabled]="!newFormProduct.valid"
+                  data-bs-dismiss="modal"
+                >
+                  Guardar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <span class="fst-italic">
+            Todos los campos con
+            <span class="text-danger">(*)</span>
+            es obligatorio
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

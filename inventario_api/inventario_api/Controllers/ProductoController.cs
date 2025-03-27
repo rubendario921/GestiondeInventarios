@@ -75,15 +75,16 @@ namespace inventario_api.Controllers
 
         [HttpDelete]
         [Route("DeleteProductos/{id}")]
-        public async Task<ActionResult<bool>> DeleteProductos(ProductoDTO requestProducto)
+        public async Task<ActionResult<bool>> DeleteProductos(int id)
         {
             //Validacion
-            if (requestProducto == null) return BadRequest($"Campos vacios o nulos en {nameof(requestProducto)}");
+            if (id<=0) return BadRequest($"Campos vacios o nulos en {nameof(id)}");
 
             //Proceso
             try
             {
-                var result = await productoServices.DeleteProductoAsync(requestProducto);
+
+                var result = await productoServices.DeleteProductoAsync(id);
                 if (!result) return BadRequest("Error al eliminar la informacion");
                 return Ok(result);
             }

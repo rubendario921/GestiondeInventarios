@@ -22,7 +22,7 @@ namespace inventario_api.Services
         {
             try
             {
-                var result = await dbContext.Productos.Select(p => new ProductoDTO
+                var result = await dbContext.Productos.Include(e=>e.est).Include(c=>c.cat).Select(p => new ProductoDTO
                 {
                     prod_id = p.prod_id,
                     prod_name = p.prod_name,
@@ -31,7 +31,10 @@ namespace inventario_api.Services
                     prod_stock = p.prod_stock,
                     prod_image = p.prod_image,
                     cat_id = p.cat_id,
+                    catName = p.cat.cat_name,
                     est_id = p.est_id,
+                    estName = p.est.est_name,
+                    estColor = p.est.est_color!
                 }).ToListAsync();
                 if (result == null) return Enumerable.Empty<ProductoDTO>();
 
@@ -48,6 +51,27 @@ namespace inventario_api.Services
                 throw;
             }
         }
+
+        //public Task<ProductoDTO> GetproductobyId(int id) {
+        //    //Validacion
+        //    if (id <= 0) throw new InvalidOperationException($"Campo ingresado es incorrecto");
+
+        //    //Proceso
+        //    try
+        //    {
+        //        var 
+        //    }
+        //    catch (Exception)
+        //    {
+        //        await logServices.RegisterLogAsync(new MsgLog
+        //        {
+        //            log_TargetSiteName = ex.TargetSite?.Name ?? nameof(GetAllProductos),
+        //            log_GetTypeName = ex.GetType().FullName! ?? $"No Identificado",
+        //            log_Message = ex.Message
+        //        });
+        //        throw;
+        //    }
+        //}
 
         public async Task<bool> SaveProductoAsync(ProductoDTO requestProducto)
         {
@@ -119,15 +143,15 @@ namespace inventario_api.Services
             }
         }
 
-        public async Task<bool> DeleteProductoAsync(ProductoDTO requestProducto)
+        public async Task<bool> DeleteProductoAsync(int requestID)
         {
             //Validacion
-            if (requestProducto == null) throw new ArgumentNullException(nameof(requestProducto), $"Error los campos estan nulos o vacios");
+            if (requestID <=0) throw new InvalidOperationException( $"Error los campos estan nulos o vacios");
 
             //Proceso
             try
             {
-                var dataProducto = await dbContext.Productos.FirstAsync(p => p.prod_id.Equals(requestProducto.prod_id));
+                var dataProducto = await dbContext.Productos.FirstAsync(p => p.prod_id.Equals(requestID));
                 if (dataProducto == null) throw new KeyNotFoundException($"Error: El producto no existe");
                 dbContext.Productos.Remove(dataProducto);
                 var result = await dbContext.SaveChangesAsync() > 0;
