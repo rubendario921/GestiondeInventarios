@@ -3,7 +3,7 @@
   type="button"
   class="btn btn-primary"
   data-bs-toggle="modal"
-  data-bs-target="#modalNewProduct"
+  data-bs-target="#newFormEstado"
 >
   <i class="bi bi-plus-square"></i>
   Nuevo Registro
@@ -12,7 +12,7 @@
 <!-- Modal Body-->
 <div
   class="modal fade"
-  id="modalNewProduct"
+  id="newFormEstado"
   tabindex="-1"
   data-bs-backdrop="static"
   data-bs-keyboard="true"
@@ -37,7 +37,7 @@
           <!-- Formulario de registro -->
           <form
             method="post"
-            [formGroup]="newFormProduct"
+            [formGroup]="newForm"
             (ngSubmit)="registerNewProduct()"
             class="needs-validation"
             novalidate
@@ -52,10 +52,10 @@
                     class="form-control shadow"
                     id="newName"
                     formControlName="newName"
-                    placeholder="Nombre del Producto"
+                    placeholder="Nombre del Estado"
                     [class.is-invalid]="
-                      newFormProduct.get('newName')?.touched &&
-                      newFormProduct.get('newName')?.invalid
+                      newForm.get('newName')?.touched &&
+                      newForm.get('newName')?.invalid
                     "
                     required
                   />
@@ -63,16 +63,10 @@
                     Nombre del Producto <span class="text-danger">*</span>
                   </label>
                   <div class="invalid-feedback">
-                    <span
-                      *ngIf="
-                        newFormProduct.get('newName')?.hasError('required')
-                      "
-                    >
+                    <span *ngIf="newForm.get('newName')?.hasError('required')">
                       El nombre es obligatorio.
                     </span>
-                    <span
-                      *ngIf="newFormProduct.get('newName')?.hasError('pattern')"
-                    >
+                    <span *ngIf="newForm.get('newName')?.hasError('pattern')">
                       No se permiten caracteres especiales o números.
                     </span>
                   </div>
@@ -88,8 +82,8 @@
                     formControlName="newDetails"
                     placeholder="Detalle del Producto"
                     [class.is-invalid]="
-                      newFormProduct.get('newDetails')?.touched &&
-                      newFormProduct.get('newDetails')?.invalid
+                      newForm.get('newDetails')?.touched &&
+                      newForm.get('newDetails')?.invalid
                     "
                     required
                   />
@@ -98,16 +92,12 @@
                   </label>
                   <div class="invalid-feedback">
                     <span
-                      *ngIf="
-                        newFormProduct.get('newDetails')?.hasError('required')
-                      "
+                      *ngIf="newForm.get('newDetails')?.hasError('required')"
                     >
                       El detalle es obligatorio.
                     </span>
                     <span
-                      *ngIf="
-                        newFormProduct.get('newDetails')?.hasError('pattern')
-                      "
+                      *ngIf="newForm.get('newDetails')?.hasError('pattern')"
                     >
                       No se permiten caracteres especiales o números.
                     </span>
@@ -128,8 +118,8 @@
                     formControlName="newPrecio"
                     placeholder="Precio"
                     [class.is-invalid]="
-                      newFormProduct.get('newPrecio')?.touched &&
-                      newFormProduct.get('newPrecio')?.invalid
+                      newForm.get('newPrecio')?.touched &&
+                      newForm.get('newPrecio')?.invalid
                     "
                     required
                   />
@@ -138,9 +128,7 @@
                   </label>
                   <div class="invalid-feedback">
                     <span
-                      *ngIf="
-                        newFormProduct.get('newPrecio')?.hasError('required')
-                      "
+                      *ngIf="newForm.get('newPrecio')?.hasError('required')"
                     >
                       El precio es obligatorio.
                     </span>
@@ -157,8 +145,8 @@
                     formControlName="newStock"
                     placeholder="Cantidad"
                     [class.is-invalid]="
-                      newFormProduct.get('newStock')?.touched &&
-                      newFormProduct.get('newStock')?.invalid
+                      newForm.get('newStock')?.touched &&
+                      newForm.get('newStock')?.invalid
                     "
                     required
                   />
@@ -166,11 +154,7 @@
                     Cantidad <span class="text-danger">*</span>
                   </label>
                   <div class="invalid-feedback">
-                    <span
-                      *ngIf="
-                        newFormProduct.get('newStock')?.hasError('required')
-                      "
-                    >
+                    <span *ngIf="newForm.get('newStock')?.hasError('required')">
                       La cantidad es obligatoria.
                     </span>
                   </div>
@@ -242,7 +226,7 @@
               <button
                 type="submit"
                 class="btn btn-success mx-2"
-                [disabled]="!newFormProduct.valid"
+                [disabled]="!newForm.valid"
               >
                 Guardar
               </button>

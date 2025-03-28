@@ -16,55 +16,29 @@
     <div class="table-responsive">
       <table mat-table [dataSource]="dataSource" matSort>
         <!-- ID -->
-        <ng-container matColumnDef="prod_id">
+        <ng-container matColumnDef="est_id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-          <td mat-cell *matCellDef="let row">{{ row.prod_id }}</td>
+          <td mat-cell *matCellDef="let row">{{ row.est_id }}</td>
         </ng-container>
 
-        <!-- Nombre Producto -->
-        <ng-container matColumnDef="prod_name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Nombre Producto
-          </th>
-          <td mat-cell *matCellDef="let row">{{ row.prod_name }}</td>
-        </ng-container>
-
-        <!-- Detalle del Producto -->
-        <ng-container matColumnDef="prod_details">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Detalle</th>
-          <td mat-cell *matCellDef="let row">
-            {{ row.prod_details }}
-          </td>
-        </ng-container>
-
-        <!-- Precio -->
-        <ng-container matColumnDef="prod_price">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio</th>
-          <td mat-cell *matCellDef="let row">{{ row.prod_price }}</td>
-        </ng-container>
-
-        <!-- Stock -->
-        <ng-container matColumnDef="prod_stock">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Stock</th>
-          <td mat-cell *matCellDef="let row">{{ row.prod_stock }}</td>
-        </ng-container>
-
-        <!-- Categoria -->
-        <ng-container matColumnDef="catName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Categoria</th>
-          <td mat-cell *matCellDef="let row">{{ row.catName }}</td>
-        </ng-container>
-
-        <!-- Estado -->
-        <ng-container matColumnDef="estName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+        <!-- Nombre -->
+        <ng-container matColumnDef="est_name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
           <td
             class="fw-bold"
             mat-cell
             *matCellDef="let row"
-            [ngStyle]="{ color: row.estColor }"
+            [ngStyle]="{ color: row.est_color }"
           >
-            {{ row.estName }}
+            {{ row.est_name }}
+          </td>
+        </ng-container>
+
+        <!-- Detalle  -->
+        <ng-container matColumnDef="est_details">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Detalle</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.est_details }}
           </td>
         </ng-container>
 
@@ -79,7 +53,7 @@
             <!-- Boton de eliminar -->
             <button
               class="btn btn-danger btn-sm"
-              (click)="deleteProducto(row.prod_id)"
+              (click)="deleteData(row.prod_id)"
             >
               <i class="bi bi-trash"></i>
             </button>
