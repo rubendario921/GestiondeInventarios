@@ -61,14 +61,16 @@ export class NewProductoComponent implements OnInit, OnDestroy {
     if (this.newFormProduct.valid) {
       let newProduct = this.newFormProduct.value;
       let productoDTO: any = {
+        prod_id: 0,
         prod_name: newProduct.newName,
         prod_details: newProduct.newDetails,
+        prod_image: '',
         prod_price: newProduct.newPrecio,
         prod_stock: newProduct.newStock,
-        est_id: newProduct.newStatus,
         cat_id: newProduct.newCategoria,
-        // prod_image: string;
+        est_id: newProduct.newStatus,
       };
+      console.log(productoDTO);
       this.productosServices.saveProducto(productoDTO).subscribe({
         next: (data) => {
           if (data) {

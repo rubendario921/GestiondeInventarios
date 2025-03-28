@@ -14,25 +14,30 @@ export class CategoriaService {
   constructor(private http: HttpClient) {}
 
   getAllCategoria(): Observable<any> {
-    return this.http.get<any>(this.APIURL + '/Estado/GetAllEstados');
+    return this.http.get<any>(this.APIURL + '/Categoria/GetAllCategorias');
   }
 
   getCategoriaById(id: number): Observable<any> {
-    return this.http.get<any>(this.APIURL + '/Estado/' + id);
+    return this.http.get<any>(this.APIURL + '/Categoria/' + id);
   }
 
   saveCategoria(estado: categoriaDTO): Observable<any> {
-    return this.http.post<any>(this.APIURL + '/Estado/SaveEstado', estado);
+    return this.http.post<any>(
+      this.APIURL + '/Categoria/SaveCategorias',
+      estado
+    );
   }
 
   updateCategoria(estado: categoriaDTO): Observable<any> {
     return this.http.put<any>(
-      this.APIURL + '/Estado/UpdateEstado/' + estado.cat_id,
+      this.APIURL + '/Categoria/UpdateCategoria/' + estado.cat_id,
       estado
     );
   }
 
   deleteCategoria(id: number): Observable<any> {
-    return this.http.delete<any>(this.APIURL + '/Estado/DeleteEstado/' + id);
+    return this.http.delete<any>(
+      this.APIURL + '/Categoria/DeleteCategoria/' + id
+    );
   }
 }
