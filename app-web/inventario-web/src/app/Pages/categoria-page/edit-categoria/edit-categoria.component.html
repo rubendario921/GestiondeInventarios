@@ -1,0 +1,130 @@
+<div class="card text-center shadow">
+  <div class="class-header">
+    <h5 class="modal-title text-subtitle-color" id="modalTitleProduct">
+      Editar Registro
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Cerrar"
+      (click)="closeModal()"
+    ></button>
+  </div>
+  <div class="card-body" [formGroup]="updateForm">
+    <!-- Primera fila -->
+    <div class="row g-2">
+      <div class="col">
+        <!-- Nombre -->
+        <div class="form-floating mb-4">
+          <input
+            type="text"
+            class="form-control shadow"
+            id="cat_name"
+            formControlName="cat_name"
+            placeholder="Nombre del Categoria"
+            [class.is-invalid]="
+              updateForm.get('cat_name')?.touched &&
+              updateForm.get('cat_name')?.invalid
+            "
+            required
+            autocomplete="off"
+            [value]="updateForm.get('cat_name')?.value"
+          />
+          <label for="cat_name" class="fw-semibold">
+            Nombre de la Categoria <span class="text-danger">*</span>
+          </label>
+          <div class="invalid-feedback">
+            <span *ngIf="updateForm.get('cat_name')?.hasError('required')">
+              El nombre es obligatorio.
+            </span>
+            <span *ngIf="updateForm.get('cat_name')?.hasError('pattern')">
+              No se permiten caracteres especiales o números.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <!-- Detalle -->
+        <div class="form-floating mb-4">
+          <input
+            type="text"
+            class="form-control shadow"
+            id="cat_details"
+            formControlName="cat_details"
+            placeholder="Detalle del Producto"
+            [class.is-invalid]="
+              updateForm.get('cat_details')?.touched &&
+              updateForm.get('cat_details')?.invalid
+            "
+            required
+            autocomplete="off"
+            [value]="updateForm.get('cat_details')?.value"
+          />
+          <label for="cat_details" class="fw-semibold">
+            Detalle de la Categoria <span class="text-danger">*</span>
+          </label>
+          <div class="invalid-feedback">
+            <span *ngIf="updateForm.get('cat_details')?.hasError('required')">
+              El detalle es obligatorio.
+            </span>
+            <span *ngIf="updateForm.get('cat_details')?.hasError('pattern')">
+              No se permiten caracteres especiales o números.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Segunda fila -->
+    <div class="row g-2">
+      <div class="col">
+        <!-- Color -->
+        <div class="form-floating mb-4">
+          <input
+            type="text"
+            class="form-control shadow"
+            id="cat_group"
+            formControlName="cat_group"
+            placeholder="Color"
+            [class.is-invalid]="
+              updateForm.get('cat_group')?.touched &&
+              updateForm.get('cat_group')?.invalid
+            "
+            required
+            autocomplete="off"
+            [value]="updateForm.get('cat_group')?.value"
+          />
+          <label for="cat_group" class="fw-semibold">
+            Grupo <span class="text-danger">*</span>
+          </label>
+          <div class="invalid-feedback">
+            <span *ngIf="updateForm.get('cat_group')?.hasError('required')">
+              El nombre es obligatorio.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="text-center">
+      <button type="button" class="btn btn-danger mx-2" (click)="closeModal()">
+        Cerrar
+      </button>
+      <button
+        type="submit"
+        class="btn btn-success mx-2"
+        [disabled]="!updateForm.valid"
+        (click)="updateProcess()"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="card-footer">
+  <span class="fst-italic">
+    Todos los campos con <span class="text-danger">(*)</span> son obligatorios.
+  </span>
+</div>

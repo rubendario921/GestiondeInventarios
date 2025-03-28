@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -7,13 +7,13 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Subscription } from 'rxjs';
-import { EstadosService } from '../../../Services/estados.service';
+import { CategoriaService } from '../../../Services/categoria.service';
 import { CustomToastrService } from '../../../Services/custom-toastr.service';
 import { Router } from '@angular/router';
-import { EditEstadoComponent } from '../edit-estado/edit-estado.component';
+import { EditCategoriaComponent } from '../edit-categoria/edit-categoria.component';
 
 @Component({
-  selector: 'app-view-estado',
+  selector: 'app-view-categoria',
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -23,16 +23,16 @@ import { EditEstadoComponent } from '../edit-estado/edit-estado.component';
     MatPaginatorModule,
     MatDialogModule,
   ],
-  templateUrl: './view-estado.component.html',
-  styleUrl: './view-estado.component.scss',
+  templateUrl: './view-categoria.component.html',
+  styleUrl: './view-categoria.component.scss',
 })
-export class ViewEstadoComponent {
+export class ViewCategoriaComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<any>();
   displayedColumns: string[] = [
-    'est_id',
-    'est_name',
-    'est_details',
-    // 'est_color',
+    'cat_id',
+    'cat_name',
+    'cat_details',
+    'cat_group',
     'acciones',
   ];
   private subscriptions: Subscription = new Subscription();
@@ -40,7 +40,7 @@ export class ViewEstadoComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private estadoServices: EstadosService,
+    private categoriaService: CategoriaService,
     private customToastr: CustomToastrService,
     public dialog: MatDialog,
     private router: Router
@@ -68,7 +68,7 @@ export class ViewEstadoComponent {
 
   getAllData() {
     this.subscriptions.add(
-      this.estadoServices.getAllEstados().subscribe({
+      this.categoriaService.getAllCategoria().subscribe({
         next: (data) => {
           if (data) {
             this.dataSource.data = data;
@@ -94,14 +94,14 @@ export class ViewEstadoComponent {
       return;
     }
     console.log(consult);
-    const dialogRef = this.dialog.open(EditEstadoComponent, {
+    const dialogRef = this.dialog.open(EditCategoriaComponent, {
       data: consult,
       disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.estadoServices.updateEstado(result).subscribe(() => {
+        this.categoriaService.updateCategoria(result).subscribe(() => {
           this.getAllData();
         });
       }
@@ -113,7 +113,7 @@ export class ViewEstadoComponent {
       return;
     }
 
-    this.subscriptions = this.estadoServices.deleteEstado(id).subscribe({
+    this.subscriptions = this.categoriaService.deleteCategoria(id).subscribe({
       next: (data) => {
         if (data) {
           this.customToastr.showSuccess(
