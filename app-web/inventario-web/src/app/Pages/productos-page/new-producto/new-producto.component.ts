@@ -70,7 +70,7 @@ export class NewProductoComponent implements OnInit, OnDestroy {
         cat_id: newProduct.newCategoria,
         est_id: newProduct.newStatus,
       };
-      console.log(productoDTO);
+
       this.productosServices.saveProducto(productoDTO).subscribe({
         next: (data) => {
           if (data) {
