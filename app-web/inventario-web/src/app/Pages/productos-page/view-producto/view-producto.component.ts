@@ -10,6 +10,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { EditProductoComponent } from '../edit-producto/edit-producto.component';
 
 @Component({
   selector: 'app-view-producto',
@@ -27,8 +28,8 @@ import { CommonModule } from '@angular/common';
 })
 export class ViewProductoComponent implements OnInit, OnDestroy {
   //Variables
+  selectedProduct: any = null;
 
-  idProducto!: number;
   dataSource = new MatTableDataSource<any>();
   displayedColumns: string[] = [
     'prod_id',
@@ -43,7 +44,7 @@ export class ViewProductoComponent implements OnInit, OnDestroy {
     'estName',
     'acciones',
   ];
-  private subscriptions!: Subscription;
+  private subscriptions: Subscription = new Subscription();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -77,27 +78,52 @@ export class ViewProductoComponent implements OnInit, OnDestroy {
   }
 
   getAllDataProductos() {
-    this.subscriptions = this.productoServices.getAllProductos().subscribe({
-      next: (data) => {
-        if (data) {
-          this.customToastr.showInfo('Carga de datos exitosa', 'Info');
+    this.subscriptions.add(
+      this.productoServices.getAllProductos().subscribe({
+        next: (data) => {
+          if (data) {
+            this.dataSource.data = data;
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          } else {
+            this.customToastr.showError('Carga de datos exitosa', 'Error');
+            console.log('No existen datos');
+          }
+        },
+        error: (error) => {
+          this.customToastr.showError(error, 'Error');
+          console.error(error);
+        },
+      })
+    );
+  }
 
-          this.dataSource.data = data;
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        } else {
-          this.customToastr.showError('Carga de datos exitosa', 'Error');
-          console.log('No existen datos');
-        }
-      },
-      error: (error) => {
-        this.customToastr.showError(error, 'Error');
-        console.error(error);
-      },
+  openEditModal(consult: any) {
+    if (!consult) {
+      this.customToastr.showWarning('Contenido no identificado', 'Importante');
+      console.error('Error: objeto no identificado');
+      return;
+    }
+    console.log(consult);
+    const dialogRef = this.dialog.open(EditProductoComponent, {
+      data: consult,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.productoServices.updateProducto(result).subscribe(() => {
+          this.getAllDataProductos();
+        });
+      }
     });
   }
 
   deleteProducto(id: number) {
+    if (!id) {
+      this.customToastr.showError('Datos no eliminados', 'Error');
+    }
+
     if (!window.confirm('Desea eliminar el producto seleccionado')) {
       return;
     }
