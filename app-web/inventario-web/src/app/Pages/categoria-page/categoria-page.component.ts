@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderMainPageComponent } from '../main-page/templates/header-main-page/header-main-page.component';
 import { FooterMainPageComponent } from '../main-page/templates/footer-main-page/footer-main-page.component';
 import { ViewCategoriaComponent } from './view-categoria/view-categoria.component';
+import { NewCategoriaComponent } from './new-categoria/new-categoria.component';
 
 @Component({
   selector: 'app-categoria-page',
@@ -9,6 +10,7 @@ import { ViewCategoriaComponent } from './view-categoria/view-categoria.componen
     HeaderMainPageComponent,
     FooterMainPageComponent,
     ViewCategoriaComponent,
+    NewCategoriaComponent,
   ],
   templateUrl: './categoria-page.component.html',
   styleUrl: './categoria-page.component.scss',

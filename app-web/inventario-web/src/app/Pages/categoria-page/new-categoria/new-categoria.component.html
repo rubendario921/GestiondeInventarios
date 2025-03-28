@@ -1,0 +1,168 @@
+<!--  Modal trigger button  -->
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#newFormEstado"
+>
+  <i class="bi bi-plus-square"></i>
+  Nuevo Registro
+</button>
+
+<!-- Modal Body-->
+<div
+  class="modal fade"
+  id="newFormEstado"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  data-bs-keyboard="true"
+  aria-labelledby="modalTitleProduct"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-subtitle-color" id="modalTitleProduct">
+          Nuevo Registro
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <!-- Formulario de registro -->
+          <form
+            method="post"
+            [formGroup]="newForm"
+            (ngSubmit)="registerNewEstado()"
+            class="needs-validation"
+            novalidate
+          >
+            <!-- Primera fila -->
+            <div class="row g-2">
+              <div class="col">
+                <!-- Nombre -->
+                <div class="form-floating mb-4">
+                  <input
+                    type="text"
+                    class="form-control shadow"
+                    id="cat_name"
+                    formControlName="cat_name"
+                    placeholder="Nombre del Estado"
+                    [class.is-invalid]="
+                      newForm.get('cat_name')?.touched &&
+                      newForm.get('cat_name')?.invalid
+                    "
+                    required
+                  />
+                  <label for="cat_name" class="fw-semibold">
+                    Nombre de la Categoria <span class="text-danger">*</span>
+                  </label>
+                  <div class="invalid-feedback">
+                    <span *ngIf="newForm.get('cat_name')?.hasError('required')">
+                      El nombre es obligatorio.
+                    </span>
+                    <span *ngIf="newForm.get('cat_name')?.hasError('pattern')">
+                      No se permiten caracteres especiales o números.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <!-- Detalle -->
+                <div class="form-floating mb-4">
+                  <input
+                    type="text"
+                    class="form-control shadow"
+                    id="cat_details"
+                    formControlName="cat_details"
+                    placeholder="Detalle del Producto"
+                    [class.is-invalid]="
+                      newForm.get('cat_details')?.touched &&
+                      newForm.get('cat_details')?.invalid
+                    "
+                    required
+                  />
+                  <label for="cat_details" class="fw-semibold">
+                    Detalle de la categoria <span class="text-danger">*</span>
+                  </label>
+                  <div class="invalid-feedback">
+                    <span
+                      *ngIf="newForm.get('cat_details')?.hasError('required')"
+                    >
+                      El detalle es obligatorio.
+                    </span>
+                    <span
+                      *ngIf="newForm.get('cat_details')?.hasError('pattern')"
+                    >
+                      No se permiten caracteres especiales o números.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Segunda fila -->
+            <div class="row g-2">
+              <div class="col">
+                <!-- Color -->
+                <div class="form-floating mb-4">
+                  <input
+                    type="text"
+                    class="form-control shadow"
+                    id="cat_group"
+                    formControlName="cat_group"
+                    placeholder="Precio"
+                    [class.is-invalid]="
+                      newForm.get('cat_group')?.touched &&
+                      newForm.get('cat_group')?.invalid
+                    "
+                    required
+                  />
+                  <label for="cat_group" class="fw-semibold">
+                    Grupo <span class="text-danger">*</span>
+                  </label>
+                  <div class="invalid-feedback">
+                    <span
+                      *ngIf="newForm.get('cat_group')?.hasError('required')"
+                    >
+                      El nombre del grupo es obligatorio.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="text-center">
+              <button
+                type="button"
+                class="btn btn-danger mx-2"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button
+                type="submit"
+                class="btn btn-success mx-2"
+                [disabled]="!newForm.valid"
+              >
+                Guardar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="fst-italic">
+          Todos los campos con <span class="text-danger">(*)</span> son
+          obligatorios.
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
