@@ -75,11 +75,11 @@ export class NewEstadoComponent implements OnInit, OnDestroy {
             'Registro guardado correctamente',
             'Correcto'
           );
-        } else {
-          this.customToastr.showError('Error en guardar el registro', 'Error');
           this.router.navigate(['/estados']).then(() => {
             window.location.reload();
           });
+        } else {
+          this.customToastr.showError('Error en guardar el registro', 'Error');
         }
       },
       error: (error) => {
