@@ -10,6 +10,6 @@ namespace inventario_api.Interfaces
 
         public Task<bool> UpdateEstadoAsync(EstadoDTO requestEstado);
 
-        public Task<bool> DeleteEstadosAsync(EstadoDTO requestEstado);
+        public Task<bool> DeleteEstadosAsync(int requestID);
     }
 }

@@ -23,7 +23,7 @@ namespace inventario_api.Controllers
             try
             {
                 var result = await categoriaServices.GetAllCategorias();
-                if (result == null) return NotFound($"No Existe informacion ");                
+                if (result == null) return NotFound($"No Existe informacion ");
                 return Ok(result);
             }
             catch (Exception)
@@ -71,20 +71,18 @@ namespace inventario_api.Controllers
 
         [HttpDelete]
         [Route("DeleteCategoria/{id}")]
-        public async Task<ActionResult<bool>> DeleteCategoria(CategoriaDTO requestCategoria) {
-            if (requestCategoria == null) return BadRequest($"Campos vacios o nulos en {nameof(requestCategoria)}");
+        public async Task<ActionResult<bool>> DeleteCategoria(int id)
+        {
+            if (id <= 0) return BadRequest($"Campos vacios o nulos en {nameof(id)}");
 
             try
             {
-
-                var result = await categoriaServices.DeleteCategoriaAsync(requestCategoria);
+                var result = await categoriaServices.DeleteCategoriaAsync(id);
                 if (!result) return BadRequest("Error al eliminar la informacion");
-
                 return Ok(result);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

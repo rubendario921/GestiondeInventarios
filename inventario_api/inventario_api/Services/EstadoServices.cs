@@ -111,14 +111,14 @@ namespace inventario_api.Services
             }
         }
 
-        public async Task<bool> DeleteEstadosAsync(EstadoDTO requestEstado)
+        public async Task<bool> DeleteEstadosAsync(int requestID)
         {
             //Validacion
-            if (requestEstado == null) throw new ArgumentNullException(nameof(requestEstado), $"Error: Los campos se encuentran nulos o vacios");
+            if (requestID <= 0l) throw new InvalidOperationException($"Error: Los campos se encuentran nulos o vacios");
 
             try
             {
-                var dataEstado = await dbContext.Estados.FirstAsync(x => x.est_id.Equals(requestEstado.est_id));
+                var dataEstado = await dbContext.Estados.FirstAsync(x => x.est_id.Equals(requestID));
                 if (dataEstado == null) throw new KeyNotFoundException($"Error: El estado no existe");
 
                 dbContext.Estados.Remove(dataEstado);

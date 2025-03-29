@@ -11,6 +11,6 @@ namespace inventario_api.Interfaces
 
         public Task<bool> UpdateCategoriaAsync(CategoriaDTO requestCategoria);
 
-        public Task<bool> DeleteCategoriaAsync(CategoriaDTO requestCategoria);
+        public Task<bool> DeleteCategoriaAsync(int requestID);
     }
 }

@@ -63,7 +63,7 @@ namespace inventario_api.Services
 
                 await dbContext.Categorias.AddAsync(newCategoria);
                 var result = await dbContext.SaveChangesAsync() > 0;
-                if (!result) return false;                
+                if (!result) return false;
                 return true;
             }
             catch (Exception ex)
@@ -95,8 +95,8 @@ namespace inventario_api.Services
 
                 dbContext.Entry(dataCategories).State = EntityState.Modified;
                 var result = await dbContext.SaveChangesAsync() > 0;
-                if (!result) return false;                
-                
+                if (!result) return false;
+
                 return true;
             }
             catch (Exception ex)
@@ -111,16 +111,19 @@ namespace inventario_api.Services
             }
         }
 
-        public async Task<bool> DeleteCategoriaAsync(CategoriaDTO requestCategoria)
+        public async Task<bool> DeleteCategoriaAsync(int requestID)
         {
+            //Validacion
+            if (requestID <= 0) throw new InvalidOperationException($"Error: los campos estan nulos vacios");
+
+            //Proceso
             try
             {
-                var dataCategories = await dbContext.Categorias.FirstAsync(x => x.cat_id.Equals(requestCategoria.cat_id));
+                var dataCategories = await dbContext.Categorias.FirstAsync(x => x.cat_id.Equals(requestID));
                 if (dataCategories == null) throw new KeyNotFoundException($"Error: La categoria no existe");
                 dbContext.Categorias.Remove(dataCategories);
                 var result = await dbContext.SaveChangesAsync() > 0;
-                if (!result) return false;                
-                
+                if (!result) return false;
                 return true;
             }
             catch (Exception ex)
