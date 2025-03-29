@@ -23,21 +23,21 @@ export class ProductosService {
 
   saveProducto(producto: productoDTO): Observable<any> {
     return this.http.post<any>(
-      this.APIURL + '/Producto/SaveProductos/',
+      this.APIURL + '/Producto/SaveProducto/',
       producto
     );
   }
 
   updateProducto(producto: productoDTO): Observable<any> {
     return this.http.put<any>(
-      this.APIURL + '/Producto/UpdateProductos/' + producto.prod_id,
+      this.APIURL + '/Producto/UpdateProducto/' + producto.prod_id,
       producto
     );
   }
 
   deleteProducto(id: number): Observable<any> {
     return this.http.delete<any>(
-      this.APIURL + '/Producto/DeleteProductos/' + id
+      this.APIURL + '/Producto/DeleteProducto/' + id
     );
   }
 }
