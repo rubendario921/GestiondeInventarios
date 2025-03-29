@@ -123,7 +123,7 @@ export class ViewCategoriaComponent implements OnInit, OnDestroy {
         } else {
           this.customToastr.showError('Datos no eliminados', 'Error');
         }
-        this.router.navigate(['/estados']).then(() => {
+        this.router.navigate(['/categorias']).then(() => {
           window.location.reload();
         });
       },
