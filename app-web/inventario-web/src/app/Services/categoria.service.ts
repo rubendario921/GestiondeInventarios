@@ -23,7 +23,7 @@ export class CategoriaService {
 
   saveCategoria(estado: categoriaDTO): Observable<any> {
     return this.http.post<any>(
-      this.APIURL + '/Categoria/SaveCategorias',
+      this.APIURL + '/Categoria/SaveCategorias/',
       estado
     );
   }

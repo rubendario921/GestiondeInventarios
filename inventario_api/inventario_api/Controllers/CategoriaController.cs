@@ -33,8 +33,8 @@ namespace inventario_api.Controllers
         }
 
         [HttpPost]
-        [Route("SaveCategorias")]
-        public async Task<ActionResult<bool>> SaveCategorias(CategoriaDTO requestCategoria)
+        [Route("SaveCategoria")]
+        public async Task<ActionResult<bool>> SaveCategoria(CategoriaDTO requestCategoria)
         {
             //Validacion
             if (requestCategoria == null) return BadRequest($"Campos vacios o nulos en {nameof(requestCategoria)}");

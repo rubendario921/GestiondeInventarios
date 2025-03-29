@@ -78,7 +78,7 @@ namespace inventario_api.Controllers
         public async Task<ActionResult<bool>> DeleteEstado(int id)
         {
             //Validacion
-            if (id <= 0) return BadRequest($"Campos vacios o nulos en {nameof(id)}");
+            if (id < 0) return BadRequest($"Campos vacios o nulos en {nameof(id)}");
             //Proceso
             try
             {

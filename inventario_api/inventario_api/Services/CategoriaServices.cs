@@ -114,7 +114,7 @@ namespace inventario_api.Services
         public async Task<bool> DeleteCategoriaAsync(int requestID)
         {
             //Validacion
-            if (requestID <= 0) throw new InvalidOperationException($"Error: los campos estan nulos vacios");
+            if (requestID < 0) throw new InvalidOperationException($"Error: los campos estan nulos vacios");
 
             //Proceso
             try

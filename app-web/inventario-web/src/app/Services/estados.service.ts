@@ -22,7 +22,7 @@ export class EstadosService {
   }
 
   saveEstado(estado: estadoDTO): Observable<any> {
-    return this.http.post<any>(this.APIURL + '/Estado/SaveEstado', estado);
+    return this.http.post<any>(this.APIURL + '/Estado/SaveEstado/', estado);
   }
 
   updateEstado(estado: estadoDTO): Observable<any> {

@@ -34,8 +34,8 @@ namespace inventario_api.Controllers
         }
 
         [HttpPost]
-        [Route("SaveProductos")]
-        public async Task<ActionResult<bool>> SaveProductos(ProductoDTO requestProducto)
+        [Route("SaveProducto")]
+        public async Task<ActionResult<bool>> SaveProducto(ProductoDTO requestProducto)
         {
             //Validacion
             if (requestProducto == null) return BadRequest($"Campos vacios o nulos en {nameof(requestProducto)}");
@@ -54,8 +54,8 @@ namespace inventario_api.Controllers
         }
 
         [HttpPut]
-        [Route("UpdateProductos/{id}")]
-        public async Task<ActionResult<bool>> UpdateProductos(ProductoDTO requestProducto)
+        [Route("UpdateProducto/{id}")]
+        public async Task<ActionResult<bool>> UpdateProducto(ProductoDTO requestProducto)
         {
             //Validacion
             if (requestProducto == null) return BadRequest($"Campos vacios o nulos en {nameof(requestProducto)}");
@@ -74,16 +74,15 @@ namespace inventario_api.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteProductos/{id}")]
-        public async Task<ActionResult<bool>> DeleteProductos(int id)
+        [Route("DeleteProducto/{id}")]
+        public async Task<ActionResult<bool>> DeleteProducto(int id)
         {
             //Validacion
-            if (id<=0) return BadRequest($"Campos vacios o nulos en {nameof(id)}");
+            if (id < 0) return BadRequest($"Campos vacios o nulos en {nameof(id)}");
 
             //Proceso
             try
             {
-
                 var result = await productoServices.DeleteProductoAsync(id);
                 if (!result) return BadRequest("Error al eliminar la informacion");
                 return Ok(result);
